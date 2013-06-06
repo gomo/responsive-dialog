@@ -1,0 +1,3 @@
+[submodule "rect"]
+	path = rect
+	url = git@github.com:gomo/rect.git

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Responsive Dialog Sample</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        <script src="../rect/jquery.rect.js"></script>
+        <script src="../jquery.Responsive-dialog.js"></script>
+        <script>
+            $(function(){
+                var modal_dialog = $('#modal_dialog').responsiveDialog({modal: true});
+
+                modal_dialog.find('.close').click(function(){
+                    modal_dialog.data('responsiveDialog').close();
+                });
+
+                $('#open_modal').click(function(){
+                    modal_dialog.data('responsiveDialog').open();
+                    return false;
+                });
+
+                var dialog1 = $('#dialog1').responsiveDialog();
+                dialog1.draggable();
+
+                dialog1.find('.close').click(function(){
+                    dialog1.data('responsiveDialog').close();
+                });
+
+                $('#open_1').click(function(){
+                    dialog1.data('responsiveDialog').open();
+                    return false;
+                });
+
+                var dialog2 = $('#dialog2').responsiveDialog();
+                dialog2.draggable();
+
+                dialog2.find('.close').click(function(){
+                    dialog2.data('responsiveDialog').close();
+                });
+
+                $('#open_2').click(function(){
+                    dialog2.data('responsiveDialog').open();
+                    return false;
+                });
+            });
+        </script>
+        <style>
+            .dialog{
+                width: 300px;
+                height: 200px;
+                border: 1px solid #ddd;
+                box-shadow: 1px 1px 5px #aaa;
+                background-color: #fff;
+                border-radius: 6px;
+                -webkit-border-radius: 6px;
+                -moz-border-radius: 6px;
+            }
+
+            .dialog .header{
+                text-align: right;
+                padding: 2px 5px;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .dialog .body{
+                padding: 10px
+            }
+
+            #responsiveDialogOverlay{
+                background-color: #000;
+                filter: alpha(opacity=25);
+                -moz-opacity:0.25;
+                opacity:0.25;
+            }
+        </style>
+    </head>
+    <body>
+        <div><a href="#" id="open_modal">MODAL OPEN</a></div>
+        <div><a href="#" id="open_1">OPEN 1</a></div>
+        <div><a href="#" id="open_2">OPEN 2</a></div>
+        <div id="modal_dialog" class="dialog">
+            <div class="header"><span class="close">close</span></div>
+            <div class="body">modal_dialog</div>
+        </div>
+        <div id="dialog1" class="dialog">
+            <div class="header"><span class="close">close</span></div>
+            <div class="body">dialog1</div>
+        </div>
+        <div id="dialog2" class="dialog">
+            <div class="header"><span class="close">close</span></div>
+            <div class="body">dialog2</div>
+        </div>
+    </body>
+</html>
