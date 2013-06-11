@@ -63,6 +63,7 @@ $.fn.extend({
             var elem = $(this);
             elem.hide().css({position: 'absolute'});
 
+
             if(!op.modal)
             {
                 elem.click(function(){
@@ -78,6 +79,7 @@ $.fn.extend({
             }
 
             var params = {
+                width: elem.outerWidth(),
                 open: function(targetElem, position){
                     elem.show();
                     if(op.modal)
@@ -98,6 +100,14 @@ $.fn.extend({
                         _setModelessZindex(elem, next);
                     }
 
+
+                    //adjust the dialog width to the window width
+                    var winSize = Rect.window.rect().size;
+                    if(winSize.width < params.width){
+                        elem.outerWidth(winSize.width - 20);
+                    } else {
+                        elem.outerWidth(params.width);
+                    }
 
                     if(targetElem){
                         position = position || 'center';
@@ -120,6 +130,17 @@ $.fn.extend({
                     } else {
                         elem.center(Rect.window.rect().center());
                     }
+
+                    var newOffset = elem.offset();
+                    if(newOffset.top < 0){
+                        newOffset.top = 0;
+                    }
+
+                    if(newOffset.left < 0){
+                        newOffset.left = 0;
+                    }
+
+                    elem.offset(newOffset);
 
                     (op.onDidOpen||$.noop)({'dialog':elem});
                 },
