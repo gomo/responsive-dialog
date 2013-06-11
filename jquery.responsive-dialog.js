@@ -78,7 +78,7 @@ $.fn.extend({
             }
 
             var params = {
-                open: function(targetElem){
+                open: function(targetElem, position){
                     elem.show();
                     if(op.modal)
                     {
@@ -100,7 +100,23 @@ $.fn.extend({
 
 
                     if(targetElem){
-                        elem.center(targetElem.center());
+                        position = position || 'center';
+                        elem.removeClass('center top bottom left right').addClass(position);
+                        var targetCenter = targetElem.center();
+                        var tarrgetOffset = targetElem.offset();
+                        if(position == 'center'){
+                            elem.center(targetCenter);
+                        } else if (position == 'top') {
+                            elem.center({top: tarrgetOffset.top - elem.outerHeight() / 2, left: targetCenter.left});
+                        } else if (position == 'bottom') {
+                            elem.center({top: tarrgetOffset.top + targetElem.outerHeight() + elem.outerHeight() / 2, left: targetCenter.left});
+                        } else if (position == 'right') {
+                            elem.center({top: targetCenter.top, left: tarrgetOffset.left + targetElem.outerWidth() + elem.outerWidth() / 2});
+                        } else if (position == 'left') {
+                            elem.center({top: targetCenter.top, left: tarrgetOffset.left - elem.outerWidth() / 2});
+                        } else {
+                            throw 'Unsupported position ' + position + ' specified.';
+                        }
                     } else {
                         elem.center(Rect.window.rect().center());
                     }

@@ -3,10 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <title>Responsive Dialog Sample</title>
+        <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         <script src="../rect/jquery.rect.js"></script>
-        <script src="../jquery.Responsive-dialog.js"></script>
+        <script src="../jquery.responsive-dialog.js"></script>
         <script>
             $(function(){
                 var modal_dialog = $('#modal_dialog').responsiveDialog({modal: true});
@@ -33,14 +34,15 @@
                 });
 
                 var dialog2 = $('#dialog2').responsiveDialog();
-                dialog2.draggable();
 
                 dialog2.find('.close').click(function(){
                     dialog2.data('responsiveDialog').close();
                 });
 
-                $('#open_2').click(function(){
-                    dialog2.data('responsiveDialog').open();
+                $('#center_button .button').click(function(e){
+                    var elem = $(this);
+                    var pos = elem.parent().find('.position').val();
+                    dialog2.data('responsiveDialog').open(elem, pos);
                     return false;
                 });
             });
@@ -67,29 +69,59 @@
                 padding: 10px
             }
 
+            .dialog .close{
+                cursor: pointer;
+            }
+
             #responsiveDialogOverlay{
                 background-color: #000;
                 filter: alpha(opacity=25);
                 -moz-opacity:0.25;
                 opacity:0.25;
             }
+
+            #wrapper{
+                width: 95%;
+                margin: 10px auto;
+            }
+
+            #center_button{
+                cursor: pointer;
+                width: 200px;
+                height: 32px;
+                background-color: #999;
+                text-align: center;
+                line-height: 32px;
+                margin: 300px auto;
+            }
         </style>
     </head>
     <body>
-        <div><a href="#" id="open_modal">MODAL OPEN</a></div>
-        <div><a href="#" id="open_1">OPEN 1</a></div>
-        <div><a href="#" id="open_2">OPEN 2</a></div>
-        <div id="modal_dialog" class="dialog">
-            <div class="header"><span class="close">close</span></div>
-            <div class="body">modal_dialog</div>
-        </div>
-        <div id="dialog1" class="dialog">
-            <div class="header"><span class="close">close</span></div>
-            <div class="body">dialog1</div>
-        </div>
-        <div id="dialog2" class="dialog">
-            <div class="header"><span class="close">close</span></div>
-            <div class="body">dialog2</div>
+        <div id="wrapper">
+            <div><a href="#" id="open_modal">MODAL OPEN</a></div>
+            <div><a href="#" id="open_1">OPEN 1</a></div>
+            <div id="modal_dialog" class="dialog">
+                <div class="header"><span class="close">close</span></div>
+                <div class="body">modal_dialog</div>
+            </div>
+            <div id="dialog1" class="dialog">
+                <div class="header"><span class="close">close</span></div>
+                <div class="body">dialog1</div>
+            </div>
+            <div id="dialog2" class="dialog">
+                <div class="header"><span class="close">close</span></div>
+                <div class="body">dialog2</div>
+            </div>
+            <div id="center_button">
+                <div class="button">push</div>
+                <select name="position" class="position">
+                    <option value="top">top</option>
+                    <option value="bottom">bottom</option>
+                    <option value="left">left</option>
+                    <option value="right">right</option>
+                    <option value="center">center</option>
+                </select>
+            </div>
         </div>
     </body>
 </html>
